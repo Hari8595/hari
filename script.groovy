@@ -1,12 +1,14 @@
-def buildApp () {
-  echo "Building the stage"
-  echo "Version is $VERSION"
-  sh "mvn --version"
+def buildJar() {
+  echo "Building the images"
+  sh "mvn package"
 }
-def testApp () {
-  echo "Testing the stage"
+def image() {
+  withCredentials([usernamePassword(credentialsId: "Docker", usernameVariable: "USR", passwordVariable: "PASS")]) {
+  sh "docker build -t hari851995/java:v1.4 ."
+  sh "echo $PASS | docker login -u $USR --password-stdin"
+  sh "docker push hari851995/java:v1.4"
 }
-def deployApp () {
-  echo "Deploying the stage"
+def deploy() {
+  echo "Deploying into server"
 }
 return this
