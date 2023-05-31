@@ -48,11 +48,11 @@ pipeline {
                 }
             }
             steps {
-                echo "environment is params.ENV"
+                echo "environment is ${ENV}"
                 script {
                     gv.deployApp ()
                 }
-                echo "type is params.TYPE"
+                echo "type is ${TYPE}"
             }
         }
     }
