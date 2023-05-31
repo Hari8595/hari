@@ -44,8 +44,8 @@ pipeline {
                 input {
                     message "Select the environment"
                     ok "Done"
-                    parameter {
-                        choice(name: ENV, choices: ["Production", "Development", "Testing"], description: "Enter the choice")
+                    parameters {
+                        choice(name: "ENV", choices: ["Production", "Development", "Testing"], description: "Enter the choice")
                     }
                 }
                 echo "echo params.ENV"
