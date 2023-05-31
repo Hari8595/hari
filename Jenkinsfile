@@ -1,64 +1,29 @@
-def gv
 pipeline {
     agent any
-    parameters{
-        string(name: "TYPE", defaultValue: "", description: "Type to be display")
-        choice(name: "CHOICE", choices: ["1.1.1", "1.2.1", "1.2.3"], description: "Choose the choice")
-        booleanParam(name: "STAGE", defaultValue: true, description: "")
-    }
     tools {
         maven "mvn-3.9.2"
     }
-    environment {
-        VERSION = "1.2.3"
-    } 
     stages {
-        stage("Init") {
+        stage("Build Jar") {
             steps {
-                script {
-                    gv = load "script.groovy"
-                }
+                echo "Building the Jar file"
+                sh "mvn package"
             }
         }
-        stage("Build") {
+        stage("Building and pushing image") {
             steps {
-                script {
-                    gv.buildApp ()
-                }
+                echo "Building and publishing the image"
+                sh "docker build -t hari851995/java:jav1.1 .""
+                withCredentials([usernamePassword(credentialsId: "Docker", usernameVariable: "USR", passwordVariable: "PASS")])
+                sh "echo "$PASS" | docker login -u $USR --password-stdin"
+                sh "docker push hari851995/java:jav1.1"
             }
         }
-        stage("Test") {
-            when{
-                expression{
-                    params.STAGE
-                }
-            }
-            steps {
-                script {
-                    gv.testApp ()
-                }
+        stage("Deploying into server"){
+            steps{
+                echo "Deploying into the server"
             }
         }
-        stage("Deploy") {
-            steps {
-                script {
-                    gv.deployApp ()
-                    env.ENV = input message: "Enter the environment", ok: "done", parameters: [choice(name: "Environment", choices: ["Prod", "Test", "Dev"], description: "")]
-                }
-                echo "environment is ${ENV}"
-                echo "type is ${TYPE}"
-            }
-        }
-    }
-    post {
-        always {
-            echo "success or failure"
-        }
-        success {
-            echo "success"
-        }
-        failure {
-            echo "failure"
-        }
+            
     }
 }
