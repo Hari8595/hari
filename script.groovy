@@ -8,6 +8,7 @@ def image() {
   sh "echo $PASS | docker login -u $USR --password-stdin"
   sh "docker push hari851995/java:v1.4"
 }
-  def deploy() {
-    echo "Deploying into server"
+def deploy() {
+  echo "Deploying into server"
 }
+return this
