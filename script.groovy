@@ -8,6 +8,5 @@ def testApp () {
 }
 def deployApp () {
   echo "Deploying the stage"
-  echo "params.TYPE"
 }
 return this
