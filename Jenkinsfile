@@ -15,7 +15,7 @@ pipeline {
                 echo "Building and publishing the image"
                 sh "docker build -t hari851995/java:jav1.1 ."
                 withCredentials([usernamePassword(credentialsId: "Docker", usernameVariable: "USR", passwordVariable: "PASS")])
-                sh "echo "$PASS" | docker login -u $USR --password-stdin"
+                sh "echo $PASS | docker login -u $USR --password-stdin"
                 sh "docker push hari851995/java:jav1.1"
             }
         }
