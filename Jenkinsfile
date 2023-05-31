@@ -20,6 +20,11 @@ pipeline {
             }
         }
         stage("Building and pushing the image") {
+            when {
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            }
             steps {
                 script {
                   gv.image()
@@ -27,6 +32,11 @@ pipeline {
             }
         }
         stage("Deploying into server") {
+            when{
+                expression {
+                    BRANCH_NAME == "main"
+                }
+            }
             steps {
                 script {
                     gv.deploy()
