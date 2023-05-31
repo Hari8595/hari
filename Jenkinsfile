@@ -44,11 +44,13 @@ pipeline {
                 message "Select the environment"
                 ok "done"
                 parameters {
-                    choice(name: "ENV", choices: ["Development", "Production", "Testing"], description: "")
+                    choice(name: "ENV1", choices: ["Development", "Production", "Testing"], description: "")
+                    choice(name: "ENV2", choices: ["Development", "Production", "Testing"], description: "")
                 }
             }
             steps {
-                echo "environment is ${ENV}"
+                echo "environment is ${ENV1}"
+                echo "environment is ${ENV2}"
                 script {
                     gv.deployApp ()
                 }
