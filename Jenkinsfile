@@ -41,11 +41,11 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                echo "environment is ${ENV}"
                 script {
                     gv.deployApp ()
                     env.ENV = input message: "Enter the environment", ok: "done", parameters: [choice(name: "Environment", choices: ["Prod", "Test", "Dev"], description: "")]
                 }
+                echo "environment is ${ENV}"
                 echo "type is ${TYPE}"
             }
         }
