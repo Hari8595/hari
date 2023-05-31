@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script{
                     echo "Building and publishing the image"
-                    withCredentials([usernamePassword(credentialsId: "Docker", usernameVariable: "USR", passwordVariable: "PASS")])
+                    withCredentials([usernamePassword(credentialsId: "Docker", passwordVariable: "PASS", usernameVariable: "USR")])
                         sh "docker build -t hari851995/java:jav1.1 ."
                         sh "echo $PASS | docker login -u $USR --password-stdin"
                         sh "docker push hari851995/java:jav1.1"
