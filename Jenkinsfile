@@ -24,7 +24,9 @@ pipeline {
         stage("Image") {
             steps {
                 script{
-                    image "hari851995/java:hari1.1"
+                    build "hari851995/java:hari1.2"
+                    login()
+                    push "hari851995/java:hari1.2"
                 }
             }
         }
