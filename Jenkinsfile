@@ -24,7 +24,7 @@ pipeline {
         stage("Image") {
             steps {
                 script{
-                    image()
+                    image "hari851995/java:hari1.1"
                 }
             }
         }
