@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-def deploy() {
+def deploy () {
     echo "Deploying into server"
 }
 return this
